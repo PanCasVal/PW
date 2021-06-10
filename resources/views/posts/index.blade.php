@@ -7,7 +7,7 @@
                 <h2>CRUD POST </h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{url("posts/create")}}" title="Create a POST"> <i class="fas fa-plus-circle"></i>
+                <a class="btn btn-success" href="{{url('posts/create')}}" title="Create a POST"> <i class="fas fa-plus-circle"></i>
                 </a>
             </div>
         </div>
@@ -27,6 +27,7 @@
             <th>Etiquetas</th>
             <th>Estatus</th>
             <th>Usuario</th>
+            <th>Acciones</th>
 
         </tr>
         @foreach ($posts as $post)
@@ -37,6 +38,16 @@
                 <td>{{$post->tags}}</td>
                 <td>{{$post->state}}</td>
                 <td>{{$post->user_id}}</td>
+                <td>
+                    <form action="{{url('posts', $post->id)}}" method="POST">   
+                        @csrf
+                        @method("DELETE")
+                        <button class="btn btn-danger"><i class="fas fa-trash fa-lg"></i></button>
+                    </form>
+                     <a class="btn btn-warning" href="{{url('posts',$post->id).'/edit'}}">
+                        <i class="fas fa-edit fa-lg"></i>
+                    </a>
+                </td>
             </tr>
         @endforeach
     </table>

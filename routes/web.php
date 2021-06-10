@@ -5,6 +5,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\LookupController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ExaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -61,3 +62,4 @@ Route::resource('lookups', LookupController::class);
 
 Route::resource('comments', CommentController::class);
 
+Route::resource('exas',ExaController::class);

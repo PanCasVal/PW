@@ -74,6 +74,7 @@ class CommentController extends Controller
      */
     public function edit(Comment $comment)
     {
+        return view("comments.edit", compact("comment"));
         //
     }
 
@@ -86,6 +87,18 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
+        $request->validate([
+            'content' => 'required',
+            'state' => 'required',
+            'author' => 'required',
+            'email' => 'required',
+            //'url' => 'required',
+            'id_post' => 'required',
+        ]);
+
+        $comment->update($request->all());
+        return redirect()->route('comments.index')
+            ->with('success', 'Actualización exitosa!!');
         //
     }
 
@@ -97,6 +110,8 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
+        $comment->delete();
+        return redirect()->route("comments.index")->with("success","Post eliminado corectamente");
         //
     }
 }

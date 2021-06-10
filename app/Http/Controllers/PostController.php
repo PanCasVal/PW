@@ -73,6 +73,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        return view("posts.edit",compact("post"));
         //
     }
 
@@ -85,6 +86,17 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+            'state' => 'required',
+            'tags' => 'required',
+            'user_id' => 'required',
+        ]);
+
+        $post->update($request->all());
+        return redirect()->route('posts.index')
+            ->with('success', 'Actualización exitosa!!');
         //
     }
 
@@ -96,6 +108,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $post->delete();
+        return redirect()->route("posts.index")->with("success","Post eliminado corectamente");
         //
     }
 }

@@ -15,7 +15,7 @@
 
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
-            <p></p>
+            <p>{{$message}}</p>
         </div>
     @endif
 
@@ -28,6 +28,7 @@
             <th>email</th>
             <th>url</th>
             <th>id_post</th>
+            <th>Acciones</th>
         </tr>
         @foreach ($comments as $comment)
             <tr>
@@ -38,6 +39,16 @@
                 <td>{{$comment->email}}</td>
                 <td>{{$comment->url}}</td>
                 <td>{{$comment->id_post}}</td>
+                <td>
+                    <form action="{{url('comments', $comment->id)}}" method="POST">   
+                        @csrf
+                        @method("DELETE")
+                        <button class="btn btn-danger"><i class="fas fa-trash fa-lg"></i></button>
+                    </form>
+                     <a class="btn btn-warning" href="{{url('comments',$comment->id).'/edit'}}">
+                        <i class="fas fa-edit fa-lg"></i>
+                    </a>
+                </td>
             </tr>
         @endforeach
     </table>

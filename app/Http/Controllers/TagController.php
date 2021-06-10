@@ -68,6 +68,7 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
+        return view("tags.edit", compact('tag'));
         //
     }
 
@@ -80,6 +81,14 @@ class TagController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
+        $request->validate([
+            'name' => 'required',
+            'frequency' => 'required',
+        ]);
+
+        $tag->update($request->all());
+        return redirect()->route('comments.index')
+            ->with('success', 'Actualización exitosa!!');
         //
     }
 
@@ -91,6 +100,8 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
+        $tag->delete();
+        return redirect()->route("comments.index")->with("success","Post eliminado corectamente");
         //
     }
 }

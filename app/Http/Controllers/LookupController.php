@@ -72,7 +72,9 @@ class LookupController extends Controller
      */
     public function edit(Lookup $lookup)
     {
-        //
+        //d
+        //return "hola edit";
+        return view("lookups.edit",compact("lookup"));
     }
 
     /**
@@ -84,6 +86,16 @@ class LookupController extends Controller
      */
     public function update(Request $request, Lookup $lookup)
     {
+        $request->validate([
+            'name' => 'required',
+            'code' => 'required',
+            'type' => 'required',
+            'position' => 'required',
+        ]);
+
+        $lookup->update($request->all());
+        return redirect()->route('lookups.index')
+            ->with('success', 'Actualización exitosa!!');
         //
     }
 
@@ -95,6 +107,8 @@ class LookupController extends Controller
      */
     public function destroy(Lookup $lookup)
     {
+        $lookup->delete();
+        return redirect()->route("lookups.index")->with("success","Post eliminado corectamente");
         //
     }
 }
